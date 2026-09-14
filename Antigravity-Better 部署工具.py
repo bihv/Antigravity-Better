@@ -131,10 +131,10 @@ def run_cli():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 示例:
-  python deploy_cascade.py deploy           # 自动查找并部署
-  python deploy_cascade.py deploy -t "D:\\..."  # 指定目标目录
-  python deploy_cascade.py restore          # 恢复原始文件
-  python deploy_cascade.py --gui            # 启动图形界面
+  python "Antigravity-Better 部署工具.py" deploy           # 自动查找并部署
+  python "Antigravity-Better 部署工具.py" deploy -t "D:\\..."  # 指定目标目录
+  python "Antigravity-Better 部署工具.py" restore          # 恢复原始文件
+  python "Antigravity-Better 部署工具.py" --gui            # 启动图形界面
         """
     )
     
@@ -166,6 +166,7 @@ def run_cli():
     print(f"📂 目标目录: {target_dir}")
     
     # 执行操作
+    success, msg = False, "未执行任何操作"
     if args.action == "deploy":
         success, msg = deploy(target_dir, args.dry_run)
     elif args.action == "restore":
@@ -309,6 +310,10 @@ def run_gui():
                 return
             
             target_path = Path(target)
+            if not target_path.exists():
+                messagebox.showerror("错误", f"目录不存在: {target}")
+                return
+
             success, msg = restore(target_path)
             if success:
                 messagebox.showinfo("成功", msg)
@@ -318,7 +323,7 @@ def run_gui():
                 self.status_text.set("❌ 恢复失败")
     
     root = tk.Tk()
-    app = DeployApp(root)
+    DeployApp(root)
     root.mainloop()
 
 
