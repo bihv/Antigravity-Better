@@ -1,3 +1,16 @@
 anti-toolbox/node_modules
 .DS_Store
 .idea
+# Generated Data & Cache
+__pycache__/
+*.pyc
+*.pyo
+antigravity_history_tokens*.json
+
+# Scratch & Debug Scripts
+check_syntax*.js
+fix_*.py
+patch_*.py
+apply_*.py
+temp.js
+test_script.js
